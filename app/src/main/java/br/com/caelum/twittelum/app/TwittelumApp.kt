@@ -10,8 +10,8 @@ class TwittelumApp : Application() {
     }
 
     companion object {
-        private lateinit var instance : TwittelumApp
-        fun getInstance() : TwittelumApp {
+        private lateinit var instance: TwittelumApp
+        fun getInstance(): TwittelumApp {
             return instance
         }
     }

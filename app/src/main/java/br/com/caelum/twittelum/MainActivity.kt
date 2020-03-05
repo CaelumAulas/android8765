@@ -13,13 +13,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: TweetViewModel
+    private val viewModel: TweetViewModel by lazy {
+        ViewModelProviders
+            .of(this, ServiceLocator)
+            .get(TweetViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        viewModel = ViewModelProviders.of(this, ServiceLocator).get(TweetViewModel::class.java)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }

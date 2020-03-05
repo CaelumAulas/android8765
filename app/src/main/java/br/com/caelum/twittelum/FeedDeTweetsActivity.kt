@@ -13,13 +13,15 @@ import kotlinx.android.synthetic.main.activity_feed_de_tweets.*
 
 class FeedDeTweetsActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: TweetViewModel
+    private val viewModel: TweetViewModel by lazy {
+        ViewModelProviders
+            .of(this, ServiceLocator)
+            .get(TweetViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed_de_tweets)
-
-        viewModel = ViewModelProviders.of(this, ServiceLocator).get(TweetViewModel::class.java)
 
         fabAdd.setOnClickListener {
             val intencao = Intent(this, MainActivity::class.java)
