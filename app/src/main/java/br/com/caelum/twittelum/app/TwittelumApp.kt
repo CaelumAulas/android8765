@@ -9,6 +9,7 @@ class TwittelumApp : Application() {
         instance = this
     }
 
+
     companion object {
         private lateinit var instance: TwittelumApp
         fun getInstance(): TwittelumApp {
