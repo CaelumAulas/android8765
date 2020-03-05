@@ -14,6 +14,14 @@ class FeedDeTweetsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feed_de_tweets)
 
+        fabAdd.setOnClickListener {
+            val intencao = Intent(this, MainActivity::class.java)
+            startActivity(intencao)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
         val tweetDao = TwittelumDatabase.getInstance(this).getTweetDao()
         val tweets = tweetDao.busca()
 
@@ -22,12 +30,6 @@ class FeedDeTweetsActivity : AppCompatActivity() {
             android.R.layout.simple_list_item_1,
             tweets
         )
-
-
-        fabAdd.setOnClickListener {
-            val intencao = Intent(this, MainActivity::class.java)
-            startActivity(intencao)
-        }
 
     }
 }
