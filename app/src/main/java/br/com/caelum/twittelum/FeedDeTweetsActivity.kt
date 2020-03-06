@@ -3,6 +3,8 @@ package br.com.caelum.twittelum
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -36,6 +38,23 @@ class FeedDeTweetsActivity : AppCompatActivity() {
                 tweets
             )
         })
+
+        listaTweets.setOnItemClickListener { adapter, view, position, id ->
+
+            val tweet = adapter.getItemAtPosition(position) as Tweet
+            perguntaSePrecisaDeletar(tweet)
+        }
+
+    }
+
+    private fun perguntaSePrecisaDeletar(tweet: Tweet) {
+        val alert = AlertDialog.Builder(this)
+        alert.setTitle("Atenção")
+        alert.setIcon(R.drawable.ic_warning)
+        alert.setMessage("Você quer deletar o tweet com o seguinte conteudo ? \n`${tweet.conteudo}`")
+        alert.setPositiveButton("Sim") { _, _ -> viewModel.deleta(tweet) }
+        alert.setNegativeButton("Não", null)
+        alert.show()
     }
 
 }

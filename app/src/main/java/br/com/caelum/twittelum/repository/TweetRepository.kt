@@ -9,4 +9,6 @@ class TweetRepository(private val fonteDeDados: TweetDao) {
 
     fun busca() = fonteDeDados.busca()
 
+    fun deleta(tweet: Tweet) = fonteDeDados.exclui(tweet)
+
 }
