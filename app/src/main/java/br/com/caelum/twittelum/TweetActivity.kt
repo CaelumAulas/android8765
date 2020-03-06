@@ -13,7 +13,7 @@ import br.com.caelum.twittelum.viewmodel.ServiceLocator
 import br.com.caelum.twittelum.viewmodel.TweetViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class TweetActivity : AppCompatActivity() {
 
     private val viewModel: TweetViewModel by lazy {
         ViewModelProviders

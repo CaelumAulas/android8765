@@ -3,7 +3,6 @@ package br.com.caelum.twittelum
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -26,7 +25,7 @@ class FeedDeTweetsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_feed_de_tweets)
 
         fabAdd.setOnClickListener {
-            val intencao = Intent(this, MainActivity::class.java)
+            val intencao = Intent(this, TweetActivity::class.java)
             startActivity(intencao)
         }
 
