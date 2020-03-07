@@ -53,6 +53,7 @@ class FeedDeTweetsActivity : AppCompatActivity() {
         alert.setMessage("Você quer deletar o tweet com o seguinte conteudo ? \n`${tweet.conteudo}`")
         alert.setPositiveButton("Sim") { _, _ -> viewModel.deleta(tweet) }
         alert.setNegativeButton("Não", null)
+        alert.setCancelable(false)
         alert.show()
     }
 
