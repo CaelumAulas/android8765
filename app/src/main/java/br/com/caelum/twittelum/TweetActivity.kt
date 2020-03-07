@@ -1,5 +1,6 @@
 package br.com.caelum.twittelum
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -13,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProviders
+import br.com.caelum.twittelum.extensions.decodeTo64
 import br.com.caelum.twittelum.modelo.Tweet
 import br.com.caelum.twittelum.viewmodel.ServiceLocator
 import br.com.caelum.twittelum.viewmodel.TweetViewModel
@@ -36,12 +38,13 @@ class TweetActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (caminho != null) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 123 && resultCode == Activity.RESULT_OK){
             exibeFoto()
         }
     }
+
 
     private fun exibeFoto() {
 
@@ -50,6 +53,7 @@ class TweetActivity : AppCompatActivity() {
         val bitmap = Bitmap.createScaledBitmap(bitmapZuado, 350, 300, true)
 
         tweetFoto.setImageBitmap(bitmap)
+        tweetFoto.tag = bitmap.decodeTo64()
 
         tweetFoto.scaleType = ImageView.ScaleType.FIT_XY
     }
@@ -74,7 +78,7 @@ class TweetActivity : AppCompatActivity() {
             val intencaoDeIrParaCamera = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
 
             intencaoDeIrParaCamera.putExtra(MediaStore.EXTRA_OUTPUT, criaCaminhoFoto())
-            startActivity(intencaoDeIrParaCamera)
+            startActivityForResult(intencaoDeIrParaCamera, 123)
 
             true
         }
@@ -88,7 +92,7 @@ class TweetActivity : AppCompatActivity() {
     private fun criaCaminhoFoto(): Uri? {
         caminho = "${getExternalFilesDir("fotos")}/${System.currentTimeMillis()}.jpg"
         val arquivo = File(caminho)
-        return FileProvider.getUriForFile(this,"TweetProvider" ,arquivo)
+        return FileProvider.getUriForFile(this, "TweetProvider", arquivo)
     }
 
 
@@ -100,7 +104,8 @@ class TweetActivity : AppCompatActivity() {
 
     private fun criaTweet(): Tweet {
         val texto = conteudoTweet.text.toString()
-        return Tweet(texto)
+        val caminho = tweetFoto.tag as String?
+        return Tweet(texto, caminho)
     }
 }
 
