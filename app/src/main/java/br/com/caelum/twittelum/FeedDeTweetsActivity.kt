@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import br.com.caelum.twittelum.adapter.TweetAdapter
 import br.com.caelum.twittelum.modelo.Tweet
 import br.com.caelum.twittelum.viewmodel.ServiceLocator
 import br.com.caelum.twittelum.viewmodel.TweetViewModel
@@ -31,11 +32,7 @@ class FeedDeTweetsActivity : AppCompatActivity() {
 
         val tweetsLiveData = viewModel.busca()
         tweetsLiveData.observe(this, Observer { tweets ->
-            listaTweets.adapter = ArrayAdapter<Tweet>(
-                this,
-                android.R.layout.simple_list_item_1,
-                tweets
-            )
+            listaTweets.adapter = TweetAdapter(tweets)
         })
 
         listaTweets.setOnItemClickListener { adapter, view, position, id ->
